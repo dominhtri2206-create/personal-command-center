@@ -2,6 +2,7 @@
    PERSONAL COMMAND CENTER - STYLESHEET
    Dark/Light Mode & Bento Grid Dashboard with Dynamic Accent Customization
    v2: Integrated DO NOW Pomodoro Timer & Inter-Matrix Drag and Drop
+   Cloud Edition: Supabase Auth & Cloud Data Sync
    ========================================================================== */
 
 /* --- CSS Variables & Theme Foundations --- */
@@ -335,6 +336,74 @@ html, body {
   font-size: 0.85rem;
   font-weight: 500;
   color: var(--text-main);
+}
+
+/* Cloud Sync Status Pill */
+.cloud-sync-pill {
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  gap: 6px;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+body[data-theme="light"] .cloud-sync-pill {
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+.cloud-sync-pill.is-saving .sync-indicator-icon {
+  display: inline-block;
+  animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
+
+.cloud-sync-pill.is-error {
+  color: #f43f5e;
+  border-color: rgba(244, 63, 94, 0.35);
+}
+
+/* User Account Pill */
+.user-account-pill {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-bright);
+  gap: 8px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-medium);
+}
+
+.user-avatar-icon {
+  font-size: 0.85rem;
+}
+
+.user-email-text {
+  max-width: 140px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.btn-logout {
+  background: rgba(244, 63, 94, 0.12);
+  border: 1px solid rgba(244, 63, 94, 0.3);
+  color: #f43f5e;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: var(--transition-smooth);
+}
+
+.btn-logout:hover {
+  background: #f43f5e;
+  color: #ffffff;
 }
 
 .live-clock-pill {
@@ -1131,6 +1200,7 @@ body[data-theme="light"] .block-status-badge {
 .habit-input-form input,
 .settings-field input,
 .inline-edit-input,
+.auth-input-wrapper input,
 select {
   width: 100%;
   background: var(--bg-input);
@@ -1149,6 +1219,7 @@ select {
 .habit-input-form input:focus,
 .settings-field input:focus,
 .inline-edit-input:focus,
+.auth-input-wrapper input:focus,
 select:focus {
   border-color: var(--energy-accent);
   box-shadow: 0 0 10px var(--energy-glow-subtle);
@@ -1973,6 +2044,146 @@ body[data-theme="light"] .habit-node {
 }
 
 /* ==========================================================================
+   SUPABASE AUTH MODAL & AUTH TABS
+   ========================================================================== */
+.auth-dialog {
+  max-width: 440px;
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.auth-card-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 6px;
+}
+
+.auth-brand-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  background: var(--energy-gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  box-shadow: 0 0 20px var(--energy-glow-subtle);
+  margin-bottom: 4px;
+}
+
+.auth-title {
+  font-size: 1.12rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  color: var(--text-bright);
+}
+
+.auth-subtitle {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.auth-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  background: var(--bg-input);
+  padding: 4px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+}
+
+.auth-tab-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 0.84rem;
+  font-weight: 700;
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.auth-tab-btn:hover {
+  color: var(--text-bright);
+}
+
+.auth-tab-btn.active {
+  background: var(--bg-card);
+  color: var(--energy-accent);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+body[data-theme="light"] .auth-tab-btn.active {
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.auth-error-box {
+  background: rgba(244, 63, 94, 0.12);
+  border: 1px solid rgba(244, 63, 94, 0.4);
+  color: #f43f5e;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+
+.auth-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.auth-field label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.auth-btn-submit {
+  width: 100%;
+  padding: 11px 16px;
+  justify-content: center;
+  font-size: 0.9rem;
+  margin-top: 4px;
+}
+
+.auth-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: #ffffff;
+  animation: spin 0.8s linear infinite;
+}
+
+.auth-footer-hint {
+  text-align: center;
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  line-height: 1.4;
+  padding-top: 4px;
+}
+
+.auth-footer-hint code {
+  font-family: var(--font-mono);
+  color: var(--energy-accent);
+}
+
+/* ==========================================================================
    SETTINGS MODAL & COLOR PICKER
    ========================================================================== */
 .modal-backdrop {
@@ -1981,7 +2192,7 @@ body[data-theme="light"] .habit-node {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.75);
   backdrop-filter: blur(8px);
   z-index: 999;
   display: flex;

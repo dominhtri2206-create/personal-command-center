@@ -8,6 +8,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Supabase JS v2 CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <link rel="stylesheet" href="style.css">
 </head>
 <body data-theme="dark" data-energy-state="peak" data-accent="dynamic">
@@ -34,6 +36,26 @@
       </div>
 
       <div class="header-meta">
+        <!-- Cloud Sync Status Pill -->
+        <div class="meta-pill cloud-sync-pill" id="cloudSyncBadge" title="Trạng thái đồng bộ đám mây Supabase">
+          <span class="sync-indicator-icon" id="syncStatusIcon">☁️</span>
+          <span id="syncStatusText">Đã đồng bộ</span>
+        </div>
+
+        <!-- User Account Pill (When logged in) -->
+        <div class="meta-pill user-account-pill hidden" id="userAccountPill">
+          <span class="user-avatar-icon">👤</span>
+          <span class="user-email-text" id="userEmailText">user@example.com</span>
+          <button type="button" class="btn-logout" id="btnLogout" title="Đăng xuất khỏi tài khoản">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+              <polyline points="16 17 21 12 16 7"></polyline>
+              <line x1="21" y1="12" x2="9" y2="12"></line>
+            </svg>
+            <span>Đăng xuất</span>
+          </button>
+        </div>
+
         <div class="meta-pill live-clock-pill">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <circle cx="12" cy="12" r="10"></circle>
@@ -534,10 +556,61 @@
       <div class="footer-content">
         <p>Personal Command Center v2 &bull; Tối ưu hóa chu kỳ sinh học & kỷ luật cá nhân</p>
         <div class="footer-pills">
-          <span class="storage-notice">⚡ Lưu trữ tức thì với LocalStorage</span>
+          <span class="storage-notice">⚡ Đồng bộ đám mây Supabase & LocalStorage</span>
         </div>
       </div>
     </footer>
+  </div>
+
+  <!-- ==============================================
+       MODAL: ĐĂNG KÝ / ĐĂNG NHẬP SUPABASE AUTH
+       ============================================== -->
+  <div class="modal-backdrop hidden" id="authModalBackdrop">
+    <div class="modal-dialog auth-dialog" id="authModal" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+      <div class="auth-card-header">
+        <div class="auth-brand-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+          </svg>
+        </div>
+        <h2 id="authTitle" class="auth-title">PERSONAL COMMAND CENTER</h2>
+        <p class="auth-subtitle">Đăng nhập tài khoản để đồng bộ dữ liệu đám mây thời gian thực</p>
+      </div>
+
+      <!-- Auth Tabs -->
+      <div class="auth-tabs">
+        <button type="button" class="auth-tab-btn active" id="tabSignIn">Đăng nhập</button>
+        <button type="button" class="auth-tab-btn" id="tabSignUp">Đăng ký mới</button>
+      </div>
+
+      <!-- Auth Form -->
+      <form class="auth-form" id="authForm">
+        <div class="auth-error-box hidden" id="authErrorBox"></div>
+
+        <div class="auth-field">
+          <label for="authEmailInput">Địa chỉ Email:</label>
+          <div class="auth-input-wrapper">
+            <input type="email" id="authEmailInput" placeholder="tenban@gmail.com" required autocomplete="email">
+          </div>
+        </div>
+
+        <div class="auth-field">
+          <label for="authPasswordInput">Mật khẩu:</label>
+          <div class="auth-input-wrapper">
+            <input type="password" id="authPasswordInput" placeholder="Tối thiểu 6 ký tự..." required autocomplete="current-password" minlength="6">
+          </div>
+        </div>
+
+        <button type="submit" class="btn-primary auth-btn-submit" id="btnAuthSubmit">
+          <span id="authSubmitText">Đăng nhập</span>
+          <span class="auth-spinner hidden" id="authSpinner"></span>
+        </button>
+      </form>
+
+      <div class="auth-footer-hint">
+        <span>⚡ Dữ liệu đám mây bảo mật được lưu trữ trên bảng <code>user_data</code> của Supabase.</span>
+      </div>
+    </div>
   </div>
 
   <!-- ==============================================
