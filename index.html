@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personal Command Center | Trung tâm Chỉ huy Cá nhân</title>
+  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-theme="dark" data-energy-state="peak" data-accent="dynamic">
+  <!-- Ambient background glow elements -->
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
+
+  <div class="app-wrapper">
+    <!-- Top Header Bar -->
+    <header class="app-header">
+      <div class="header-brand">
+        <div class="logo-mark">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <div class="brand-title-wrap">
+            <h1 class="brand-title" id="appBrandTitle">PERSONAL COMMAND CENTER</h1>
+            <span class="system-status-dot" title="Hệ thống hoạt động bình thường"></span>
+          </div>
+          <p class="brand-subtitle" id="appBrandSubtitle">Hệ thống điều hành năng lượng, nhiệm vụ & thói quen sinh học</p>
+        </div>
+      </div>
+
+      <div class="header-meta">
+        <div class="meta-pill live-clock-pill">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+          <span id="liveClock">00:00:00</span>
+          <span class="date-sub" id="liveDate">Thứ ..., 01/01/2026</span>
+        </div>
+
+        <div class="meta-pill energy-status-pill" id="headerEnergyBadge">
+          <span class="energy-indicator-dot"></span>
+          <span class="energy-label">⚡ Năng lượng: Đỉnh cao (9/10)</span>
+        </div>
+
+        <div class="header-actions">
+          <!-- Theme Toggle Button (Light / Dark) -->
+          <button id="themeToggleBtn" class="btn-icon theme-toggle-btn" title="Chuyển chế độ Sáng / Tối (☀️ / 🌙)" aria-label="Đổi giao diện">
+            <span class="theme-icon-dark">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                <line x1="1" y1="12" x2="3" y2="12"></line>
+                <line x1="21" y1="12" x2="23" y2="12"></line>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+              </svg>
+            </span>
+            <span class="theme-icon-light hidden">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+              </svg>
+            </span>
+          </button>
+
+          <!-- Settings Button -->
+          <button id="settingsBtn" class="btn-icon" title="Cài đặt hệ thống (⚙️)" aria-label="Cài đặt">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="3"></circle>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+            </svg>
+          </button>
+
+          <!-- Reset Button -->
+          <button id="resetDataBtn" class="btn-icon" title="Khôi phục dữ liệu mẫu ban đầu" aria-label="Khôi phục mẫu">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+              <path d="M3 3v5h5"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Bento Grid Container -->
+    <main class="bento-grid">
+
+      <!-- ==============================================
+           MODULE 1: MA TRẬN LỊCH TRÌNH NĂNG LƯỢNG
+           ============================================== -->
+      <section class="bento-card card-energy" id="energyModule">
+        <div class="card-header">
+          <div class="header-info">
+            <span class="card-badge">MODULE 01</span>
+            <h2 class="card-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+              </svg>
+              Ma trận Lịch trình Năng lượng
+            </h2>
+          </div>
+          <div class="drag-hint">
+            <span class="hint-icon">⇄</span> Kéo thả việc giữa các khung giờ
+          </div>
+        </div>
+
+        <!-- Energy Input Controller -->
+        <div class="energy-controller">
+          <div class="controller-top">
+            <span class="controller-label">Trạng thái năng lượng thực tế hiện tại:</span>
+            <div class="energy-value-display">
+              <span id="energyNumBadge" class="num-badge">9</span>
+              <span id="energyTextStatus" class="text-status">⚡ Đỉnh cao (Deep Work)</span>
+            </div>
+          </div>
+
+          <!-- Quick Preset Buttons -->
+          <div class="energy-presets">
+            <button class="preset-btn active" data-level="9" data-state="peak">
+              <span class="preset-icon">⚡</span>
+              <span class="preset-title">Đỉnh cao</span>
+              <span class="preset-range">Mức 8 - 10</span>
+            </button>
+            <button class="preset-btn" data-level="6" data-state="steady">
+              <span class="preset-icon">🔋</span>
+              <span class="preset-title">Ổn định</span>
+              <span class="preset-range">Mức 5 - 7</span>
+            </button>
+            <button class="preset-btn" data-level="3" data-state="low">
+              <span class="preset-icon">🌙</span>
+              <span class="preset-title">Thấp điểm</span>
+              <span class="preset-range">Mức 1 - 4</span>
+            </button>
+          </div>
+
+          <!-- Slider with scale ticks -->
+          <div class="slider-wrapper">
+            <div class="slider-ticks">
+              <span>1</span>
+              <span>2</span>
+              <span>3</span>
+              <span>4</span>
+              <span>5</span>
+              <span>6</span>
+              <span>7</span>
+              <span>8</span>
+              <span>9</span>
+              <span>10</span>
+            </div>
+            <input type="range" id="energySlider" min="1" max="10" value="9" step="1" aria-label="Thanh đo năng lượng">
+          </div>
+
+          <div class="energy-recommendation-box" id="energyRecommendation">
+            <span class="rec-icon">💡</span>
+            <span class="rec-text" id="recText">Khuyến nghị: Bộ não đang ở phong độ tốt nhất! Hãy tập trung 100% vào các nhiệm vụ phức tạp, giải quyết đề khó hoặc bài tập BTEC lớn.</span>
+          </div>
+        </div>
+
+        <!-- ==============================================
+             V2 HERO CARD: 🎯 DO NOW & ĐỒNG HỒ POMODORO
+             ============================================== -->
+        <div class="do-now-card" id="doNowCard">
+          <div class="do-now-header">
+            <div class="do-now-title-wrap">
+              <span class="do-now-badge">🎯 DO NOW</span>
+              <h3 class="do-now-title">Tiêu điểm Hành động lúc này</h3>
+            </div>
+            <div class="do-now-energy-match" id="doNowEnergyTag">
+              <span class="pulse-ring"></span>
+              <span id="doNowEnergyMatchText">⚡ Đỉnh cao &bull; Deep Work</span>
+            </div>
+          </div>
+
+          <!-- Recommended Focus Task -->
+          <div class="do-now-task-box" id="doNowTaskBox">
+            <div class="do-now-task-label">NHIỆM VỤ ĐỀ XUẤT TẬP TRUNG NGAY:</div>
+            <div class="do-now-task-content" id="doNowTaskContent">
+              <!-- Dynamically rendered via JS -->
+            </div>
+          </div>
+
+          <!-- Integrated Pomodoro Timer Widget -->
+          <div class="pomodoro-widget" id="pomodoroWidget">
+            <div class="pomo-top-row">
+              <div class="pomo-mode-selector">
+                <button type="button" class="pomo-mode-btn active" id="pomoModeWork" data-mode="work">
+                  🔥 Tập trung (25p)
+                </button>
+                <button type="button" class="pomo-mode-btn" id="pomoModeBreak" data-mode="break">
+                  ☕ Nghỉ ngắn (5p)
+                </button>
+              </div>
+              <div class="pomo-counter-pill" id="pomoCountPill" title="Số phiên Pomodoro đã hoàn thành">
+                <span>🍅 Đã xong: <strong id="pomoSessionsCount">0</strong> phiên</span>
+              </div>
+            </div>
+
+            <!-- Countdown Timer Display -->
+            <div class="pomo-timer-display">
+              <span class="pomo-digits" id="pomoTimerText">25:00</span>
+              <span class="pomo-mode-label" id="pomoModeBadge">CHẾ ĐỘ TẬP TRUNG</span>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="pomo-progress-track">
+              <div class="pomo-progress-fill" id="pomoProgressFill" style="width: 100%;"></div>
+            </div>
+
+            <!-- Pomodoro Controls -->
+            <div class="pomo-controls">
+              <button type="button" class="btn-primary pomo-btn-main" id="pomoPlayPauseBtn">
+                <span class="pomo-btn-icon" id="pomoPlayIcon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                  </svg>
+                </span>
+                <span class="pomo-btn-icon hidden" id="pomoPauseIcon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <rect x="6" y="4" width="4" height="16"></rect>
+                    <rect x="14" y="4" width="4" height="16"></rect>
+                  </svg>
+                </span>
+                <span id="pomoBtnLabel">Bắt đầu phiên</span>
+              </button>
+
+              <button type="button" class="btn-secondary pomo-btn-reset" id="pomoResetBtn" title="Đặt lại đồng hồ">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+                  <path d="M3 3v5h5"></path>
+                </svg>
+                <span>Đặt lại</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Biological Time Frame Blocks (Drop Zones) -->
+        <div class="energy-matrix-grid">
+          <!-- Frame 1: Peak -->
+          <div class="matrix-block block-peak" id="framePeak" data-energy-zone="peak">
+            <div class="block-header">
+              <div class="block-title-wrap">
+                <span class="block-icon">⚡</span>
+                <div>
+                  <h3 class="block-title">Khung Đỉnh cao (Deep Work)</h3>
+                  <span class="block-time" id="displayPeakTime">08:30 - 11:30 &bull; 14:30 - 17:00</span>
+                </div>
+              </div>
+              <div class="block-header-right">
+                <span class="block-status-badge">KHUYẾN NGHỊ CAO</span>
+                <button class="btn-add-to-zone" data-target-zone="peak" title="Thêm việc nhanh vào khung này">+ Thêm việc</button>
+              </div>
+            </div>
+            <p class="block-desc">Tập trung tuyệt đối: Tư duy phân tích, lập trình đồ án, giải đề thi, viết báo cáo.</p>
+            <div class="matrix-dropzone" data-zone-id="peak" id="zonePeak">
+              <div class="dropzone-empty-hint">Kéo thả nhiệm vụ Deep Work vào đây</div>
+            </div>
+          </div>
+
+          <!-- Frame 2: Steady -->
+          <div class="matrix-block block-steady" id="frameSteady" data-energy-zone="steady">
+            <div class="block-header">
+              <div class="block-title-wrap">
+                <span class="block-icon">🔋</span>
+                <div>
+                  <h3 class="block-title">Khung Ổn định (Steady Work)</h3>
+                  <span class="block-time" id="displaySteadyTime">13:30 - 14:30 &bull; 19:30 - 21:30</span>
+                </div>
+              </div>
+              <div class="block-header-right">
+                <span class="block-status-badge">DUY TRÌ TIẾN ĐỘ</span>
+                <button class="btn-add-to-zone" data-target-zone="steady" title="Thêm việc nhanh vào khung này">+ Thêm việc</button>
+              </div>
+            </div>
+            <p class="block-desc">Xử lý đều đặn: Học từ vựng Flashcards, đọc giáo trình, trả lời thư tín, thảo luận nhóm.</p>
+            <div class="matrix-dropzone" data-zone-id="steady" id="zoneSteady">
+              <div class="dropzone-empty-hint">Kéo thả nhiệm vụ Steady Work vào đây</div>
+            </div>
+          </div>
+
+          <!-- Frame 3: Low Drain -->
+          <div class="matrix-block block-low" id="frameLow" data-energy-zone="low">
+            <div class="block-header">
+              <div class="block-title-wrap">
+                <span class="block-icon">🌙</span>
+                <div>
+                  <h3 class="block-title">Khung Thấp điểm (Low Drain & Phục hồi)</h3>
+                  <span class="block-time" id="displayLowTime">11:30 - 13:30 &bull; 21:30 - 23:00</span>
+                </div>
+              </div>
+              <div class="block-header-right">
+                <span class="block-status-badge">TIẾT KIỆM NĂNG LƯỢNG</span>
+                <button class="btn-add-to-zone" data-target-zone="low" title="Thêm việc nhanh vào khung này">+ Thêm việc</button>
+              </div>
+            </div>
+            <p class="block-desc">Tác vụ nhẹ nhàng: Sắp xếp tài liệu, dọn desktop, nghe podcast học tập, thư giãn tái tạo não bộ.</p>
+            <div class="matrix-dropzone" data-zone-id="low" id="zoneLow">
+              <div class="dropzone-empty-hint">Kéo thả nhiệm vụ Low Drain vào đây</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==============================================
+           MODULE 2: KHU VỰC QUẢN LÝ NHIỆM VỤ
+           ============================================== -->
+      <section class="bento-card card-tasks" id="tasksModule">
+        <div class="card-header">
+          <div class="header-info">
+            <span class="card-badge">MODULE 02</span>
+            <h2 class="card-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 20h9"></path>
+                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+              </svg>
+              Quản lý Nhiệm vụ Ưu tiên
+            </h2>
+          </div>
+          <div class="task-counter-pill">
+            <span id="tasksPendingCount">0</span> việc cần làm
+          </div>
+        </div>
+
+        <!-- Add Task Form -->
+        <form class="task-input-form" id="addTaskForm">
+          <div class="input-row">
+            <div class="input-field-wrap">
+              <input type="text" id="taskTitleInput" placeholder="Nhập tên nhiệm vụ cần xử lý..." autocomplete="off" required>
+            </div>
+            <div class="select-field-wrap">
+              <select id="taskPrioritySelect" aria-label="Mức độ ưu tiên">
+                <option value="high">🔴 Ưu tiên Cao</option>
+                <option value="medium" selected>🟡 Ưu tiên Trung bình</option>
+                <option value="low">🟢 Ưu tiên Thấp</option>
+              </select>
+            </div>
+            <button type="submit" class="btn-primary" id="btnAddTask">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+              <span>+ Thêm việc</span>
+            </button>
+          </div>
+        </form>
+
+        <!-- Priority Columns (Drag & Drop Pools) -->
+        <div class="priority-columns-grid">
+          <!-- High Priority Column -->
+          <div class="priority-col col-high" data-priority="high">
+            <div class="priority-header">
+              <div class="priority-title">
+                <span class="priority-indicator dot-high"></span>
+                <span>ƯU TIÊN CAO</span>
+              </div>
+              <span class="col-count" id="countHigh">0</span>
+            </div>
+            <div class="task-dropzone" data-priority-zone="high" id="tasksHigh">
+              <!-- Tasks will be rendered here -->
+            </div>
+          </div>
+
+          <!-- Medium Priority Column -->
+          <div class="priority-col col-medium" data-priority="medium">
+            <div class="priority-header">
+              <div class="priority-title">
+                <span class="priority-indicator dot-medium"></span>
+                <span>ƯU TIÊN TRUNG BÌNH</span>
+              </div>
+              <span class="col-count" id="countMedium">0</span>
+            </div>
+            <div class="task-dropzone" data-priority-zone="medium" id="tasksMedium">
+              <!-- Tasks will be rendered here -->
+            </div>
+          </div>
+
+          <!-- Low Priority Column -->
+          <div class="priority-col col-low" data-priority="low">
+            <div class="priority-header">
+              <div class="priority-title">
+                <span class="priority-indicator dot-low"></span>
+                <span>ƯU TIÊN THẤP</span>
+              </div>
+              <span class="col-count" id="countLow">0</span>
+            </div>
+            <div class="task-dropzone" data-priority-zone="low" id="tasksLow">
+              <!-- Tasks will be rendered here -->
+            </div>
+          </div>
+        </div>
+
+        <div class="tasks-footer">
+          <span class="footer-tip">💡 Mẹo: Rê chuột vào tay nắm ⋮⋮ để kéo thả đổi khung giờ hoặc mức ưu tiên. Nhấp đúp hoặc bấm ✏️ để sửa tên việc.</span>
+        </div>
+      </section>
+
+      <!-- ==============================================
+           MODULE 3: BẢNG ĐIỀU KHIỂN TIẾN ĐỘ DÀI HẠN
+           ============================================== -->
+      <section class="bento-card card-goals" id="goalsModule">
+        <div class="card-header">
+          <div class="header-info">
+            <span class="card-badge">MODULE 03</span>
+            <h2 class="card-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <circle cx="12" cy="12" r="6"></circle>
+                <circle cx="12" cy="12" r="2"></circle>
+              </svg>
+              Bảng điều khiển Tiến độ Mục tiêu
+            </h2>
+          </div>
+          <button class="btn-primary btn-sm" id="toggleAddGoalBtn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+            + Thêm mục tiêu
+          </button>
+        </div>
+
+        <!-- Add Goal Form (collapsible or toggleable) -->
+        <form class="goal-input-form hidden" id="addGoalForm">
+          <div class="goal-form-grid">
+            <input type="text" id="goalTitleInput" placeholder="Tên mục tiêu dài hạn (vd: Đạt IELTS 6.5 Overall)..." required>
+            <select id="goalCategorySelect">
+              <option value="academic">🎓 Học thuật</option>
+              <option value="language" selected>🌍 Ngoại ngữ</option>
+              <option value="personal">👤 Cá nhân</option>
+            </select>
+            <div class="goal-form-progress">
+              <input type="number" id="goalInitialProgress" min="0" max="100" value="10" placeholder="%">
+              <span>%</span>
+            </div>
+            <button type="submit" class="btn-primary btn-sm">Lưu mục tiêu</button>
+          </div>
+        </form>
+
+        <!-- Goals List Container -->
+        <div class="goals-container" id="goalsContainer">
+          <!-- Goals rendered via JS -->
+        </div>
+
+        <!-- Goals Summary Footer -->
+        <div class="goals-overview-bar">
+          <div class="overview-item">
+            <span class="overview-label">Tổng số mục tiêu:</span>
+            <span class="overview-val" id="totalGoalsCount">0</span>
+          </div>
+          <div class="overview-item">
+            <span class="overview-label">Tiến độ trung bình:</span>
+            <span class="overview-val highlight" id="avgGoalProgress">0%</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==============================================
+           MODULE 4: THÓI QUEN THEO QUY TẮC XẾP CHỒNG
+           ============================================== -->
+      <section class="bento-card card-habits" id="habitsModule">
+        <div class="card-header">
+          <div class="header-info">
+            <span class="card-badge">MODULE 04</span>
+            <h2 class="card-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+              </svg>
+              Thói quen Chuỗi Xếp chồng (Habit Stacking)
+            </h2>
+          </div>
+          <div class="streak-badge-pill" id="habitStreakPill" title="Chuỗi ngày duy trì thói quen liên tiếp">
+            <span class="streak-flame">🔥</span>
+            <span class="streak-text">Chuỗi: <strong id="streakCount">0</strong> ngày</span>
+          </div>
+        </div>
+
+        <div class="habit-concept-banner">
+          <span class="concept-tag">CÔNG THỨC ATOMIC HABITS</span>
+          <p class="concept-formula">
+            <span class="formula-part anchor-text">Sau khi [Thói quen neo sẵn có]</span>
+            <span class="formula-arrow">➔</span>
+            <span class="formula-part action-text">Tôi sẽ [Hành động tích cực mới]</span>
+          </p>
+        </div>
+
+        <!-- Add Habit Stacking Form -->
+        <form class="habit-input-form" id="addHabitForm">
+          <div class="habit-form-row">
+            <div class="input-with-label">
+              <label for="habitAnchorInput">Sau khi (Thói quen neo sẵn có):</label>
+              <input type="text" id="habitAnchorInput" placeholder="vd: Uống ly cà phê sáng..." required>
+            </div>
+            <div class="habit-arrow-icon">➔</div>
+            <div class="input-with-label">
+              <label for="habitActionInput">Tôi sẽ (Hành động tích cực mới):</label>
+              <input type="text" id="habitActionInput" placeholder="vd: Đọc 5 trang sách chuyên ngành..." required>
+            </div>
+            <button type="submit" class="btn-primary" id="btnAddHabit">
+              <span>+ Thêm chuỗi</span>
+            </button>
+          </div>
+        </form>
+
+        <!-- Daily Habit Completion Progress -->
+        <div class="habit-day-progress">
+          <div class="day-progress-header">
+            <span>Tiến độ hoàn thành chuỗi hôm nay:</span>
+            <span id="habitProgressPct">0% (0/0 chuỗi)</span>
+          </div>
+          <div class="progress-track">
+            <div class="progress-bar-fill" id="habitProgressBar" style="width: 0%;"></div>
+          </div>
+        </div>
+
+        <!-- Habit Stacks List -->
+        <div class="habit-stacks-list" id="habitsList">
+          <!-- Habit stacks will be rendered here -->
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <div class="footer-content">
+        <p>Personal Command Center v2 &bull; Tối ưu hóa chu kỳ sinh học & kỷ luật cá nhân</p>
+        <div class="footer-pills">
+          <span class="storage-notice">⚡ Lưu trữ tức thì với LocalStorage</span>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- ==============================================
+       MODAL: CÀI ĐẶT HỆ THỐNG (SETTINGS MODAL)
+       ============================================== -->
+  <div class="modal-backdrop hidden" id="settingsModalBackdrop">
+    <div class="modal-dialog" id="settingsModal" role="dialog" aria-modal="true" aria-labelledby="settingsModalTitle">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <span class="modal-icon">⚙️</span>
+          <h2 id="settingsModalTitle">Cài đặt Hệ thống & Tùy biến</h2>
+        </div>
+        <button class="btn-close-modal" id="btnCloseSettings" aria-label="Đóng cài đặt">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <!-- 1. Cá nhân hóa tên & lời chào -->
+        <div class="settings-section">
+          <h3 class="settings-sec-title">1. Cá nhân hóa Command Center</h3>
+          <div class="settings-field">
+            <label for="settingsTitleInput">Tên Trung tâm Chỉ huy:</label>
+            <input type="text" id="settingsTitleInput" placeholder="PERSONAL COMMAND CENTER">
+          </div>
+          <div class="settings-field">
+            <label for="settingsSubtitleInput">Khẩu hiệu / Lời chào cá nhân:</label>
+            <input type="text" id="settingsSubtitleInput" placeholder="Hệ thống điều hành năng lượng, nhiệm vụ & thói quen sinh học">
+          </div>
+        </div>
+
+        <!-- 2. Bộ chọn Màu chủ đạo (Accent Color Picker) -->
+        <div class="settings-section">
+          <h3 class="settings-sec-title">2. Màu chủ đạo (Accent Color Palette)</h3>
+          <p class="settings-hint">Chọn gam màu yêu thích để thay đổi nút bấm, thanh tiến độ và viền nổi bật:</p>
+          <div class="color-palette-grid">
+            <button type="button" class="color-swatch-btn" data-accent-color="dynamic" title="Theo Năng lượng Sinh học">
+              <span class="swatch-circle swatch-dynamic"></span>
+              <span class="swatch-name">⚡ Theo Năng lượng</span>
+            </button>
+            <button type="button" class="color-swatch-btn" data-accent-color="ocean" title="Xanh Dương Hiện Đại">
+              <span class="swatch-circle swatch-ocean"></span>
+              <span class="swatch-name">🔵 Xanh Dương</span>
+            </button>
+            <button type="button" class="color-swatch-btn" data-accent-color="emerald" title="Xanh Ngọc Tươi Mát">
+              <span class="swatch-circle swatch-emerald"></span>
+              <span class="swatch-name">🌿 Xanh Ngọc</span>
+            </button>
+            <button type="button" class="color-swatch-btn" data-accent-color="orange" title="Cam Năng Lượng">
+              <span class="swatch-circle swatch-orange"></span>
+              <span class="swatch-name">🍊 Cam Năng Lượng</span>
+            </button>
+            <button type="button" class="color-swatch-btn" data-accent-color="rose" title="Hồng San Hô">
+              <span class="swatch-circle swatch-rose"></span>
+              <span class="swatch-name">🌸 Hồng San Hô</span>
+            </button>
+            <button type="button" class="color-swatch-btn" data-accent-color="violet" title="Tím Sáng Tạo">
+              <span class="swatch-circle swatch-violet"></span>
+              <span class="swatch-name">🟣 Tím Sáng Tạo</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 3. Tùy chỉnh Khung giờ Sinh học -->
+        <div class="settings-section">
+          <h3 class="settings-sec-title">3. Tùy chỉnh Khung giờ Sinh học Cá nhân</h3>
+          <div class="settings-field">
+            <label for="settingsPeakTime">⚡ Khung Đỉnh cao (Deep Work):</label>
+            <input type="text" id="settingsPeakTime" placeholder="08:30 - 11:30 &bull; 14:30 - 17:00">
+          </div>
+          <div class="settings-field">
+            <label for="settingsSteadyTime">🔋 Khung Ổn định (Steady Work):</label>
+            <input type="text" id="settingsSteadyTime" placeholder="13:30 - 14:30 &bull; 19:30 - 21:30">
+          </div>
+          <div class="settings-field">
+            <label for="settingsLowTime">🌙 Khung Thấp điểm (Low Drain & Phục hồi):</label>
+            <input type="text" id="settingsLowTime" placeholder="11:30 - 13:30 &bull; 21:30 - 23:00">
+          </div>
+        </div>
+
+        <!-- 4. Thao tác Quản lý Dữ liệu & Ngày mới -->
+        <div class="settings-section">
+          <h3 class="settings-sec-title">4. Vận hành & Sao lưu Dữ liệu</h3>
+          <div class="settings-actions-grid">
+            <button type="button" class="btn-settings-action btn-new-day" id="btnStartNewDay">
+              <span class="action-icon">🌅</span>
+              <div class="action-text">
+                <strong>Bắt đầu ngày mới</strong>
+                <small>Bỏ tick thói quen hôm qua, giữ nguyên Streak & Tiến độ</small>
+              </div>
+            </button>
+
+            <button type="button" class="btn-settings-action" id="btnExportJSON">
+              <span class="action-icon">⬇️</span>
+              <div class="action-text">
+                <strong>Sao lưu dữ liệu (Export JSON)</strong>
+                <small>Tải file .json lưu toàn bộ nhiệm vụ, thói quen & mục tiêu</small>
+              </div>
+            </button>
+
+            <button type="button" class="btn-settings-action" id="btnTriggerImport">
+              <span class="action-icon">⬆️</span>
+              <div class="action-text">
+                <strong>Khôi phục (Import JSON)</strong>
+                <small>Nhập file backup JSON để đồng bộ trên máy mới</small>
+              </div>
+            </button>
+            <input type="file" id="importFileInput" accept=".json" style="display: none;">
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn-secondary" id="btnCancelSettings">Đóng</button>
+        <button type="button" class="btn-primary" id="btnSaveSettings">Lưu thay đổi</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notification Toast -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
