@@ -182,10 +182,8 @@ function saveData(key, data, skipCloudSync = false) {
 // SUPABASE CLIENT & REALTIME CLOUD SYNC ENGINE (table: user_data)
 // ==========================================================================
 const SUPABASE_URL = 'https://talhlejxdeobpdldtmjo.supabase.co';
-// Supabase Anon / Public API Key (decoded at runtime)
-const SUPABASE_ANON_KEY = typeof atob === 'function'
-  ? atob('c2Jfc2VjcmV0XzJONldkR1FtX3JJNERZUWJ0bV90SGdfSEVtdzRjZUw=')
-  : ['sb', 'secret', '2N6WdGQm', 'rI4DYQbtm', 'tHg', 'HEmw4ceL'].join('_');
+// Supabase Publishable / Anon API Key
+const SUPABASE_ANON_KEY = 'sb_publishable_Kq8MuaqtJzV8FdORBTMDEw_sEUTkeG8';
 
 let supabaseClient = null;
 let currentAuthUser = null;
